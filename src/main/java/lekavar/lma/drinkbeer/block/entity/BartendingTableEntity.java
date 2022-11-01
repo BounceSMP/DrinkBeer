@@ -68,7 +68,7 @@ public class BartendingTableEntity extends BlockEntity implements NamedScreenHan
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
+    public void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         //Write beerId
         tag.putShort("beerId", (short) this.beerId);
@@ -79,8 +79,6 @@ public class BartendingTableEntity extends BlockEntity implements NamedScreenHan
         if (listTag != null) {
             tag.put("Spices", listTag);
         }
-
-        return tag;
     }
 
     @Override

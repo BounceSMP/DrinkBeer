@@ -111,15 +111,13 @@ public class TradeboxEntity extends BlockEntity implements ImplementedInventory,
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
+    public void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         Inventories.writeNbt(tag, this.goodInventory);
         tag.putShort("CoolingTime", (short) this.coolingTime);
         tag.putShort("LocationId", (short) this.locationId);
         tag.putShort("ResidentId", (short) this.residentId);
         tag.putShort("Process", (short) this.process);
-
-        return tag;
     }
 
     @Override

@@ -38,7 +38,7 @@ public class MixedBeerEntity extends BlockEntity {
     }
 
     @Override
-    public NbtCompound writeNbt(NbtCompound tag) {
+    public void writeNbt(NbtCompound tag) {
         super.writeNbt(tag);
         //Write beerId
         tag.putShort("beerId", (short) this.beerId);
@@ -48,8 +48,6 @@ public class MixedBeerEntity extends BlockEntity {
         if (listTag != null) {
             tag.put("Spices", listTag);
         }
-
-        return tag;
     }
 
     @Override
@@ -83,11 +81,13 @@ public class MixedBeerEntity extends BlockEntity {
     @Nullable
     @Override
     public BlockEntityUpdateS2CPacket toUpdatePacket() {
-        return new BlockEntityUpdateS2CPacket(this.pos, 6, this.toInitialChunkDataNbt());
+        return BlockEntityUpdateS2CPacket.create(this, entity -> entity.toInitialChunkDataNbt());
     }
 
     @Override
     public NbtCompound toInitialChunkDataNbt() {
-        return this.writeNbt((new NbtCompound()));
+        var tag = new NbtCompound();
+        this.writeNbt(tag);
+        return tag;
     }
 }
